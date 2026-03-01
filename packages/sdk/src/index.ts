@@ -1,2 +1,8 @@
-// public surface — fills in as the client grows
-export {};
+export type {
+  AgentMessage,
+  AgentRequest,
+  AgentResponse,
+  ClientOptions,
+  HealthResponse,
+} from "./types.js";
+export { AgentResponseSchema, HealthResponseSchema } from "./schemas.js";
