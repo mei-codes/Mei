@@ -1,3 +1,5 @@
+export { OdinClient } from "./client.js";
+export { OdinError, OdinHttpError, OdinNetworkError } from "./errors.js";
 export type {
   AgentMessage,
   AgentRequest,
