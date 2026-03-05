@@ -1,5 +1,11 @@
 export { OdinClient } from "./client.js";
-export { OdinError, OdinHttpError, OdinNetworkError } from "./errors.js";
+export {
+  OdinError,
+  OdinHttpError,
+  OdinNetworkError,
+  OdinRateLimitError,
+  OdinValidationError,
+} from "./errors.js";
 export type {
   AgentMessage,
   AgentRequest,
@@ -7,4 +13,7 @@ export type {
   ClientOptions,
   HealthResponse,
 } from "./types.js";
-export { AgentResponseSchema, HealthResponseSchema } from "./schemas.js";
+export {
+  AgentResponseSchema,
+  HealthResponseSchema,
+} from "./schemas.js";

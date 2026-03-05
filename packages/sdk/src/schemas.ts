@@ -20,3 +20,12 @@ export const HealthResponseSchema = z.object({
   provider: z.string(),
   protected: z.boolean(),
 });
+
+export const ErrorBodySchema = z.object({
+  ok: z.literal(false),
+  error: z.object({
+    code: z.string(),
+    message: z.string(),
+    details: z.unknown().optional(),
+  }),
+});
