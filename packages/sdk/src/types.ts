@@ -2,7 +2,9 @@ export interface ClientOptions {
   baseUrl: string;
   apiKey?: string;
   fetch?: typeof globalThis.fetch;
+  timeoutMs?: number;
   defaultHeaders?: Record<string, string>;
+  userAgent?: string;
 }
 
 export interface AgentMessage {
@@ -13,6 +15,9 @@ export interface AgentMessage {
 export interface AgentRequest {
   prompt: string;
   messages?: AgentMessage[];
+  model?: string;
+  maxOutputTokens?: number;
+  signal?: AbortSignal;
 }
 
 export interface AgentResponse {
