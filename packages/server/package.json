@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@odin/sdk": "workspace:*",
-    "fastify": "^5.0.0"
+    "fastify": "^5.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.5.0"
