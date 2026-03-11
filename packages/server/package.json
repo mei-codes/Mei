@@ -19,6 +19,7 @@
   "dependencies": {
     "@odin/sdk": "workspace:*",
     "fastify": "^5.0.0",
+    "pino": "^9.4.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
