@@ -5,6 +5,7 @@ const EnvSchema = z.object({
   HOST: z.string().default("0.0.0.0"),
   OPENAI_API_KEY: z.string().min(1, "OPENAI_API_KEY is required"),
   OPENAI_MODEL: z.string().default("gpt-4o-mini"),
+  OPENAI_MAX_OUTPUT_TOKENS: z.coerce.number().int().positive().default(700),
 });
 
 export type Env = z.infer<typeof EnvSchema>;
