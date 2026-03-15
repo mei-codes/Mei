@@ -15,5 +15,21 @@ export async function buildServer(opts: BuildOptions): Promise<FastifyInstance> 
   const runner = opts.runner ?? createOpenAIRunner(opts.env);
   registerHealth(app, { env: opts.env });
   registerAgent(app, { env: opts.env, runner });
+
+  app.setErrorHandler((err, _req, reply) => {
+    app.log.error({ err }, "unhandled error");
+    reply.status(500).send({
+      ok: false,
+      error: { code: "internal", message: "internal server error" },
+    });
+  });
+
+  app.setNotFoundHandler((_req, reply) => {
+    reply.status(404).send({
+      ok: false,
+      error: { code: "not_found", message: "no such route" },
+    });
+  });
+
   return app;
 }
