@@ -1,7 +1,8 @@
-import type { FastifyInstance } from "fastify";
+import type { FastifyInstance, FastifyRequest } from "fastify";
 import { z } from "zod";
 import type { Env } from "../env.js";
 import type { OpenAIRunner } from "../openai.js";
+import type { RateLimiter } from "../rateLimit.js";
 
 const AgentBody = z.object({
   prompt: z.string().trim().min(1).max(8000),
@@ -21,6 +22,7 @@ const AgentBody = z.object({
 export interface AgentDeps {
   env: Env;
   runner: OpenAIRunner;
+  limiter: RateLimiter;
 }
 
 export function registerAgent(app: FastifyInstance, deps: AgentDeps) {
@@ -33,6 +35,20 @@ export function registerAgent(app: FastifyInstance, deps: AgentDeps) {
           code: "bad_request",
           message: "invalid agent request body",
           details: parsed.error.issues,
+        },
+      });
+    }
+
+    const decision = deps.limiter.check(rateKey(req));
+    if (!decision.ok) {
+      return reply.status(429).send({
+        ok: false,
+        error: {
+          code: "rate_limited",
+          message:
+            decision.reason === "per_day"
+              ? "daily request budget exceeded"
+              : "per-minute request budget exceeded",
         },
       });
     }
@@ -58,4 +74,13 @@ export function registerAgent(app: FastifyInstance, deps: AgentDeps) {
       });
     }
   });
+}
+
+function rateKey(req: FastifyRequest): string {
+  const fwd = req.headers["x-forwarded-for"];
+  if (typeof fwd === "string" && fwd.length > 0) {
+    const first = fwd.split(",")[0]?.trim();
+    if (first) return first;
+  }
+  return req.ip || "unknown";
 }
