@@ -41,6 +41,8 @@ export function registerAgent(app: FastifyInstance, deps: AgentDeps) {
 
     const decision = deps.limiter.check(rateKey(req));
     if (!decision.ok) {
+      const retry = decision.retryAfterSeconds ?? 1;
+      reply.header("retry-after", String(retry));
       return reply.status(429).send({
         ok: false,
         error: {
