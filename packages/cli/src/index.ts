@@ -1,10 +1,18 @@
 import { Command } from "commander";
+import { askCommand } from "./commands/ask.js";
 import { CLI_VERSION } from "./version.js";
 
 async function main() {
   const program = new Command();
   program.name("odin").description("Terminal client for the Odin Agent").version(CLI_VERSION);
-  await program.parseAsync(process.argv);
+  program.addCommand(askCommand());
+
+  try {
+    await program.parseAsync(process.argv);
+  } catch (err) {
+    process.stderr.write(`error: ${(err as Error).message}\n`);
+    process.exit(1);
+  }
 }
 
 main();
