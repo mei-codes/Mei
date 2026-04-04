@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import readline from "node:readline";
+import kleur from "kleur";
 import type { AgentMessage } from "@odin/sdk";
 import { makeClient } from "../client.js";
 import { printAgentReply } from "../ui.js";
@@ -13,7 +14,7 @@ export function chatCommand(): Command {
       const history: AgentMessage[] = [];
 
       const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-      const prompt = () => rl.question("you ➜ ", handle);
+      const prompt = () => rl.question(kleur.bold().green("you ➜ "), handle);
 
       const handle = async (line: string) => {
         const text = line.trim();
@@ -24,7 +25,7 @@ export function chatCommand(): Command {
         }
         if (text === "/clear") {
           history.length = 0;
-          process.stdout.write("history cleared.\n");
+          process.stdout.write(kleur.dim("history cleared.\n"));
           return prompt();
         }
 
@@ -34,12 +35,12 @@ export function chatCommand(): Command {
           history.push({ role: "user", content: text });
           history.push({ role: "assistant", content: reply.answer });
         } catch (err) {
-          process.stderr.write(`error: ${(err as Error).message}\n`);
+          process.stderr.write(kleur.red(`error: ${(err as Error).message}\n`));
         }
         prompt();
       };
 
-      process.stdout.write("odin chat — /exit to quit, /clear to reset history\n");
+      process.stdout.write(kleur.dim("odin chat — /exit to quit, /clear to reset history\n"));
       prompt();
     });
 }

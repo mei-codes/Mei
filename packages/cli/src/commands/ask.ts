@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { makeClient } from "../client.js";
-import { printAgentReply } from "../ui.js";
+import { printAgentReply, spinner } from "../ui.js";
 
 export function askCommand(): Command {
   return new Command("ask")
@@ -14,11 +14,18 @@ export function askCommand(): Command {
     )
     .action(async (prompt: string[], opts) => {
       const client = await makeClient();
-      const reply = await client.ask({
-        prompt: prompt.join(" "),
-        model: opts.model,
-        maxOutputTokens: opts.maxTokens,
-      });
-      printAgentReply(reply);
+      const sp = spinner("odin is thinking…");
+      try {
+        const reply = await client.ask({
+          prompt: prompt.join(" "),
+          model: opts.model,
+          maxOutputTokens: opts.maxTokens,
+        });
+        sp.stop();
+        printAgentReply(reply);
+      } catch (err) {
+        sp.stop();
+        throw err;
+      }
     });
 }

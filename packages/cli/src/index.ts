@@ -1,4 +1,5 @@
 import { Command } from "commander";
+import kleur from "kleur";
 import { askCommand } from "./commands/ask.js";
 import { chatCommand } from "./commands/chat.js";
 import { healthCommand } from "./commands/health.js";
@@ -14,7 +15,7 @@ async function main() {
   try {
     await program.parseAsync(process.argv);
   } catch (err) {
-    process.stderr.write(`error: ${(err as Error).message}\n`);
+    process.stderr.write(kleur.red(`error: ${(err as Error).message}\n`));
     process.exit(1);
   }
 }
