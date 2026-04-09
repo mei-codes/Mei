@@ -5,18 +5,21 @@
   "description": "Open command portal.",
   "license": "MIT",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   },
-  "packageManager": "pnpm@9.10.0",
+  "packageManager": "pnpm@9.12.0",
   "scripts": {
     "build": "pnpm -r build",
+    "dev": "pnpm --filter @odin/server dev",
     "test": "pnpm -r test",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "@types/node": "^22.5.0",
-    "typescript": "^5.5.4",
-    "tsx": "^4.19.0",
-    "vitest": "^2.1.0"
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.3",
+    "tsx": "^4.19.1",
+    "vitest": "^2.1.2"
   }
 }
