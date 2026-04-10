@@ -29,7 +29,7 @@ export class OdinClient {
     if (!options.baseUrl) {
       throw new Error("OdinClient: baseUrl is required");
     }
-    this.baseUrl = options.baseUrl;
+    this.baseUrl = options.baseUrl.replace(/\/+$/, "");
     this.fetchImpl = options.fetch ?? globalThis.fetch.bind(globalThis);
     this.timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
     this.headers = {
