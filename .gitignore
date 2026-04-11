@@ -1,6 +1,39 @@
+# dependencies
 node_modules/
+.pnpm-store/
+
+# build output
 dist/
+build/
+out/
+*.tsbuildinfo
+
+# logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+*.log
+
+# env files
 .env
 .env.local
-*.log
+.env.*.local
+
+# editor / OS
 .DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+# coverage / test artifacts
+coverage/
+.nyc_output/
+
+# foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+
+# misc
+.turbo/
+.next/
