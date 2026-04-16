@@ -7,6 +7,7 @@ script = "script"
 solc_version = "0.8.24"
 optimizer = true
 optimizer_runs = 200
+via_ir = true
 verbosity = 2
 remappings = [
     "@openzeppelin/=lib/openzeppelin-contracts/",
