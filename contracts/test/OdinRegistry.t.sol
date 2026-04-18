@@ -38,18 +38,41 @@ contract OdinRegistryTest is Test {
         (
             address publisher,
             string memory name,
-            ,
+            string memory version,
             bytes32 contentHash,
-            ,
+            string memory uri,
             uint64 createdAt,
             uint64 deprecatedAt
         ) = registry.entries(id);
 
         assertEq(publisher, alice);
         assertEq(name, "odin");
+        assertEq(version, "0.1.0");
         assertEq(contentHash, HASH_ONE);
+        assertEq(uri, "ipfs://x");
         assertGt(createdAt, 0);
         assertEq(deprecatedAt, 0);
+    }
+
+    function test_publishRejectsEmptyName() public {
+        vm.expectRevert(OdinRegistry.EmptyName.selector);
+        registry.publish("", "0.1.0", HASH_ONE, "");
+    }
+
+    function test_publishRejectsEmptyVersion() public {
+        vm.expectRevert(OdinRegistry.EmptyVersion.selector);
+        registry.publish("odin", "", HASH_ONE, "");
+    }
+
+    function test_publishRejectsZeroHash() public {
+        vm.expectRevert(OdinRegistry.ZeroContentHash.selector);
+        registry.publish("odin", "0.1.0", bytes32(0), "");
+    }
+
+    function test_publishRejectsLongUri() public {
+        bytes memory long = new bytes(513);
+        vm.expectRevert(OdinRegistry.UriTooLong.selector);
+        registry.publish("odin", "0.1.0", HASH_ONE, string(long));
     }
 
     function test_deprecateMarksEntry() public {
@@ -64,5 +87,38 @@ contract OdinRegistryTest is Test {
 
         (, , , , , , uint64 deprecatedAt) = registry.entries(id);
         assertGt(deprecatedAt, 0);
+        assertEq(registry.isActive(id), false);
+    }
+
+    function test_deprecateRejectsNonPublisher() public {
+        vm.prank(alice);
+        uint256 id = registry.publish("odin", "0.1.0", HASH_ONE, "");
+
+        vm.expectRevert(
+            abi.encodeWithSelector(OdinRegistry.NotPublisher.selector, id, bob)
+        );
+        vm.prank(bob);
+        registry.deprecate(id);
+    }
+
+    function test_deprecateRejectsUnknown() public {
+        vm.expectRevert(abi.encodeWithSelector(OdinRegistry.UnknownEntry.selector, 99));
+        registry.deprecate(99);
+    }
+
+    function test_deprecateRejectsTwice() public {
+        vm.startPrank(alice);
+        uint256 id = registry.publish("odin", "0.1.0", HASH_ONE, "");
+        registry.deprecate(id);
+        vm.expectRevert(
+            abi.encodeWithSelector(OdinRegistry.AlreadyDeprecated.selector, id)
+        );
+        registry.deprecate(id);
+        vm.stopPrank();
+    }
+
+    function test_entriesRevertsOnUnknown() public {
+        vm.expectRevert(abi.encodeWithSelector(OdinRegistry.UnknownEntry.selector, 1));
+        registry.entries(1);
     }
 }
