@@ -18,3 +18,10 @@ remappings = [
 line_length = 100
 tab_width = 4
 bracket_spacing = true
+
+[rpc_endpoints]
+sepolia = "${RPC_URL}"
+mainnet = "${MAINNET_RPC_URL}"
+
+[etherscan]
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
