@@ -6,6 +6,16 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./chain": {
+      "types": "./dist/chain.d.ts",
+      "import": "./dist/chain.js"
+    }
+  },
   "files": ["dist", "README.md"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -15,5 +25,11 @@
   },
   "dependencies": {
     "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "viem": "^2.21.0"
   }
 }
