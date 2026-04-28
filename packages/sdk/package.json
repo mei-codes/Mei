@@ -1,6 +1,6 @@
 {
   "name": "@odin/sdk",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "TypeScript SDK for the Odin Agent HTTP API.",
   "license": "MIT",
   "type": "module",
@@ -16,11 +16,15 @@
       "import": "./dist/chain.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
+    "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
@@ -28,6 +32,11 @@
   },
   "peerDependencies": {
     "viem": "^2.21.0"
+  },
+  "peerDependenciesMeta": {
+    "viem": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "viem": "^2.21.0"
