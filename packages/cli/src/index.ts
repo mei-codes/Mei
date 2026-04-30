@@ -3,6 +3,7 @@ import kleur from "kleur";
 import { askCommand } from "./commands/ask.js";
 import { chatCommand } from "./commands/chat.js";
 import { healthCommand } from "./commands/health.js";
+import { registryCommand } from "./commands/registry.js";
 import { CLI_VERSION } from "./version.js";
 
 async function main() {
@@ -11,6 +12,7 @@ async function main() {
   program.addCommand(askCommand());
   program.addCommand(chatCommand());
   program.addCommand(healthCommand());
+  program.addCommand(registryCommand());
 
   try {
     await program.parseAsync(process.argv);
