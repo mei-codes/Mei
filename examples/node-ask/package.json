@@ -1,0 +1,16 @@
+{
+  "name": "@odin/example-node-ask",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Smallest possible @odin/sdk consumer.",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@odin/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.1"
+  }
+}
