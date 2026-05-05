@@ -1,0 +1,17 @@
+{
+  "name": "@odin/example-publish-manifest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Hash a local manifest and publish it to OdinRegistry.",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@odin/sdk": "workspace:*",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.1"
+  }
+}
