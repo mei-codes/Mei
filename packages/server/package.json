@@ -20,6 +20,7 @@
   "dependencies": {
     "@odin/sdk": "workspace:*",
     "fastify": "^5.0.0",
+    "@fastify/cors": "^10.0.1",
     "openai": "^4.67.0",
     "pino": "^9.4.0",
     "zod": "^3.23.8"
