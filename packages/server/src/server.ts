@@ -13,7 +13,11 @@ export interface BuildOptions {
 }
 
 export async function buildServer(opts: BuildOptions): Promise<FastifyInstance> {
-  const app = Fastify({ loggerInstance: logger, trustProxy: true });
+  const app = Fastify({
+    loggerInstance: logger,
+    disableRequestLogging: false,
+    trustProxy: true,
+  });
 
   await app.register(cors, {
     origin: opts.env.ODIN_CORS_ORIGIN === "*" ? true : opts.env.ODIN_CORS_ORIGIN,
