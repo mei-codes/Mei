@@ -38,7 +38,9 @@ export function createOpenAIRunner(env: Env): OpenAIRunner {
   return {
     async run(input) {
       const model = input.model ?? env.OPENAI_MODEL;
-      const maxOutputTokens = input.maxOutputTokens ?? env.OPENAI_MAX_OUTPUT_TOKENS;
+      const maxOutputTokens =
+        input.maxOutputTokens ?? env.OPENAI_MAX_OUTPUT_TOKENS;
+
       const history = input.messages ?? [];
       const messages = [
         { role: "system" as const, content: SYSTEM_PROMPT },
@@ -56,7 +58,8 @@ export function createOpenAIRunner(env: Env): OpenAIRunner {
         { signal: input.signal },
       );
 
-      const raw = completion.choices[0]?.message?.content?.trim() ?? "";
+      const choice = completion.choices[0];
+      const raw = choice?.message?.content?.trim() ?? "";
       const { title, body } = splitTitle(raw);
 
       return {
@@ -75,9 +78,16 @@ export function createOpenAIRunner(env: Env): OpenAIRunner {
 }
 
 export function splitTitle(raw: string): { title: string; body: string } {
-  if (!raw) return { title: "", body: "" };
+  if (!raw) return { title: "Odin", body: "" };
   const lines = raw.split(/\r?\n/);
   const first = (lines[0] ?? "").trim();
+  if (!first) {
+    return { title: "Odin", body: raw.trim() };
+  }
   const rest = lines.slice(1).join("\n").trim();
-  return { title: first, body: rest };
+  if (rest.length === 0) {
+    return { title: "Odin", body: first };
+  }
+  const title = first.replace(/^#+\s*/, "").slice(0, 120);
+  return { title: title || "Odin", body: rest };
 }
