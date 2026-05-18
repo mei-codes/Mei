@@ -1,6 +1,6 @@
 {
   "name": "@odin/server",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "description": "Fastify server exposing /api/health and /api/agent.",
   "license": "MIT",

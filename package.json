@@ -1,8 +1,8 @@
 {
   "name": "odin-agent",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "Open command portal.",
+  "description": "Open command portal — SDK, CLI, server, and on-chain registry.",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0",
@@ -13,6 +13,7 @@
     "build": "pnpm -r build",
     "dev": "pnpm --filter @odin/server dev",
     "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean && rm -rf node_modules"
   },

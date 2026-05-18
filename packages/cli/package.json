@@ -1,6 +1,6 @@
 {
   "name": "@odin/cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Terminal client for the Odin Agent.",
   "license": "MIT",
   "type": "module",
@@ -8,11 +8,16 @@
   "bin": {
     "odin": "./bin/odin.js"
   },
-  "files": ["bin", "dist", "README.md"],
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/index.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
     "clean": "rm -rf dist"
   },
   "dependencies": {
