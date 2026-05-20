@@ -20,8 +20,13 @@ tab_width = 4
 bracket_spacing = true
 
 [rpc_endpoints]
-sepolia = "${RPC_URL}"
-mainnet = "${MAINNET_RPC_URL}"
+sepolia      = "${RPC_URL}"
+mainnet      = "${MAINNET_RPC_URL}"
+base         = "${BASE_RPC_URL}"
+base_sepolia = "${BASE_SEPOLIA_RPC_URL}"
 
 [etherscan]
-sepolia = { key = "${ETHERSCAN_API_KEY}" }
+sepolia      = { key = "${ETHERSCAN_API_KEY}" }
+# Etherscan V2 multichain endpoint — the legacy api.basescan.org/api V1 endpoint is deprecated.
+base         = { key = "${BASESCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=8453", chain = 8453 }
+base_sepolia = { key = "${BASESCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=84532", chain = 84532 }
