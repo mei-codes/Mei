@@ -26,3 +26,9 @@ forge script script/Deploy.s.sol \
 ```
 
 The registry has no admin and no upgrade path — once deployed, it is what it is.
+
+## Live deployments
+
+| Chain | Contract | Address |
+| --- | --- | --- |
+| Base mainnet (8453) | `OdinRegistry` | [`0x65099C6B2490D85eaB22a76aA9771E3afd65a4ca`](https://basescan.org/address/0x65099c6b2490d85eab22a76aa9771e3afd65a4ca#code) |
