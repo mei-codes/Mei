@@ -7,7 +7,7 @@ Odin Agent is an open command portal for turning launch questions, product ideas
 - **`@odin/server`** — a Fastify-based agent service that talks to OpenAI on the server side and exposes `/api/health` and `/api/agent`.
 - **`contracts/`** — Solidity contracts (Foundry) for the on-chain registry and access pass.
 
-This repository is the public beta (`v0.1.0`). Nothing here is a managed service yet — you bring your own OpenAI key, run the server yourself, and (optionally) deploy the registry contract to any EVM chain.
+This repository is the public beta (`v0.1.0-beta`). Nothing here is a managed service yet — you bring your own OpenAI key, run the server yourself, and (optionally) deploy the registry contract to any EVM chain.
 
 ## Why Odin
 
