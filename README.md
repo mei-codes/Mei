@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/images/banner.png" alt="Odin Agent — open command portal" width="100%" />
+</p>
+
 # Odin Agent
 
 Odin Agent is an open command portal for turning launch questions, product ideas, and technical decisions into usable next steps. It ships as three pieces that share a single contract surface:
